@@ -1,37 +1,41 @@
-tree = {
-    'A': ['B', 'C', 'D'],
-    'C': ['E', 'F'],
-    'F': ['I', 'G'],
-    'D': ['H']
+graph={
+    'A':['B','C','D'],
+    'B':[],
+    'C':['E','F'],
+    'D':['H'],
+    'E':[],
+    'F':['G'],
+    'G':[],
+    'H':[]   
 }
 
-h = {
-    'A': 15,
-    'B': 13,
-    'C': 10,
-    'D': 14,
-    'E': 11,
-    'F': 8,
-    'I': 4,
-    'H': 9,
-    'G': 0
+h={
+    'A':6,
+    'B':5,
+    'C':3,
+    'D':4,
+    'E':6,
+    'F':2,
+    'G':0,
+    'H':7
 }
+start='A'
+goal='G'
+queue=[start]
+visited=[]
 
-current = 'A'
+while queue:
+    node=min(queue, key=lambda x: h[x])
+    queue.remove(node)
 
-path = [current]
-print("Best First Search Path:", current, end=" ")
+    if node not in visited:
+        print(node,end=" ")
+        visited.append(node)
 
-while current != 'G':
-    children = tree.get(current, [])
+        if node ==goal:
+            print("\nGoal Reached!")
+            break
 
-    if not children:
-        print("\nGoal not found!")
-        break
-
-    current = min(children, key=lambda node: h[node])
-
-    path.append(current)
-    print(f"-> {current}", end=" ")
-
-print("\nGoal Reached!")
+        for child in graph[node]:
+            if child not in visited:
+                queue.append(child)
