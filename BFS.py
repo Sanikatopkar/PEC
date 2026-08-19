@@ -1,26 +1,29 @@
-tree = {
-    'A': ['B', 'C', 'D'],
-    'C': ['E', 'F'],
-    'F': ['I', 'G'],
-    'D': ['H']
+#BFS
+graph={
+    'A':['B','C','D'],
+    'B':[],
+    'C':['E','F'],
+    'D':['H'],
+    'E':[],
+    'F':['I','G'],
+    'G':[],
+    'H':[],
+    'I':[]
+    
 }
-
-start = 'A'
-goal = 'G'
-
-queue = [[start]]
+start='A'
+goal='G'
+queue=[start]
+visited=[]
 
 while queue:
-    path = queue.pop(0)
-    current = path[-1]
-
-    if current == goal:
-        print("BFS Path:", end=" ")
-        for node in path:
-            print(node, end=" ")
-        print("\nGoal Reached!")
-        break
-
-    for child in tree.get(current, []):
-        new_path = path + [child]
-        queue.append(new_path)
+    node=queue.pop(0)
+    if node not in visited:
+        print(node,end=" ")
+        visited.append(node)
+        if node ==goal:
+            print("\nGoal Reached!")
+            break
+        for child in graph[node]:
+            if child not in visited:
+                queue.append(child)
